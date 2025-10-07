@@ -42,11 +42,11 @@ CREATE TABLE Roteiro_PontosInteresse (
 
 CREATE TABLE Avaliacoes (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    nota INT CHECK (nota >= 1 AND nota <= 5),
+    nota INT,
     comentario TEXT,
     dataComentario DATE NOT NULL,
     usuario_id INT,
     roteiro_id INT,
     FOREIGN KEY (roteiro_id) REFERENCES Roteiros(id),
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
 );
