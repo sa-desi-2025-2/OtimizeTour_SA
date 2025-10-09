@@ -5,7 +5,7 @@ CREATE TABLE usuarios (
     id INT PRIMARY KEY AUTO_INCREMENT, 
     nome VARCHAR(50) NOT NULL, 
     email VARCHAR(30) NOT NULL UNIQUE, 
-    senhaHash VARCHAR(100) NOT NULL 
+    senhaHash VARCHAR(512) NOT NULL 
 );
 
 CREATE TABLE Categorias (
