@@ -11,6 +11,7 @@
 
   /* === Card central === */
   .login-container {
+    display: block;
     background: #fff;
     border-radius: 16px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -19,6 +20,10 @@
     text-align: center;
     position: relative;
   }
+
+  .login-container input {
+    display: block; 
+}
 
   /* === Botão voltar === */
   .voltar {

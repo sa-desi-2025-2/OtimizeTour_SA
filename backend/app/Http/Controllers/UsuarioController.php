@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Usuario;
 use App\Http\Resources\UsuarioResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash; // Importe o Hash
+
 
 class UsuarioController extends Controller
 {
@@ -19,11 +21,28 @@ class UsuarioController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        $usuario = Usuario::create($request->all());
-        return new UsuarioResource($usuario);
-    }
+// App\Http\Controllers\UsuarioController
+
+public function store(Request $request)
+{
+    // 1. Validação (OBRIGATÓRIO em API)
+    $validatedData = $request->validate([
+        'nome' => 'required|string|max:255',
+        'email' => 'required|email|unique:usuarios',
+        'senha' => 'required|min:8|max:255', // O front deve enviar 'senha' ou 'password'
+    ]);
+
+    // 2. Criação do Usuário, aplicando o Hash à senha
+    $usuario = Usuario::create([
+        'nome' => $validatedData['nome'],
+        'email' => $validatedData['email'],
+        // Seu campo no banco é 'senhaHash', mas o input é 'senha'
+        'senhaHash' => Hash::make($validatedData['senha']), 
+    ]);
+    
+    // O status code correto para criação é 201
+    return (new UsuarioResource($usuario))->response()->setStatusCode(201);
+}
 
     /**
      * Display the specified resource.
